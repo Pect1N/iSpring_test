@@ -4,6 +4,7 @@ class Figure
 {
 private:
 	Figure* lower;
+	Figure* higher;
 	int potnts[2][4];
 	int size[2];
 	int minimal_size[2];
