@@ -13,5 +13,3 @@ public:
 	Figure();
 	~Figure();
 };
-
-Figure* HIGHEST_ELEMENT = 0;

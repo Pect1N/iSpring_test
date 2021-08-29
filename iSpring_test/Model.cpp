@@ -1,5 +1,7 @@
 #include "Model.h"
 
+Figure* HIGHEST_ELEMENT = 0;
+
 Figure::Figure()
 {
 	if (HIGHEST_ELEMENT != 0)
