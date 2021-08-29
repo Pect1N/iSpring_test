@@ -4,6 +4,6 @@
 
 int main(void)
 {
-	Show_Menu();
+	Show();
 	return 0;
 }
