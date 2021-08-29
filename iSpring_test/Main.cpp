@@ -7,5 +7,6 @@
 int main(void)
 {
 	Show_Menu();
+	Show_Figure(1);
 	return 0;
 }
