@@ -1,4 +1,6 @@
 #pragma once
 
-void Show_Menu();
+void Show();
 void Show_Figure(int);
+void Show_Boards();
+int Menu_Click_Check();
