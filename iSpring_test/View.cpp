@@ -1,19 +1,10 @@
 #include "Viewr.h"
+#include "Controller.h"
+#include "Model.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
-
-const int WIDTH = 700; //window width
-const int HEIGTH = 700; //window heigth
-const int AREA_WIDTH = 640;
-const int AREA_HEIGTH = 480;
-const int MENU_WIDTH = 640;
-const int MENU_HEIGTH = 130;
-Vector2f MENU_POS;
-Vector2f AREA_POS;
-
-RenderWindow window(VideoMode(WIDTH, HEIGTH), "Game");
 
 void Show()
 {
@@ -32,7 +23,7 @@ void Show()
 		Show_Boards();
 		if (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left)
 		{
-
+			Menu_Click_Check();
 		}
 		window.display();
 	}
@@ -77,7 +68,7 @@ void Show_Boards()
 	Image image;
 	Texture texture;
 	Sprite sprite;
-	int move_width = (WIDTH - AREA_WIDTH) / 2;
+	float move_width = (WIDTH - AREA_WIDTH) / 2;
 
 	window.clear(Color(175, 180, 240));
 
@@ -108,11 +99,4 @@ void Show_Boards()
 	sprite.setTexture(texture);
 	sprite.setPosition(move_width + 230, move_width + 10);
 	window.draw(sprite);
-}
-
-int Menu_Click_Check()
-{
-	Vector2i pixelPos = Mouse::getPosition(window);
-
-	// проверка на координаты нажатия и сравнение с глобальными переменными для меню и для рабочей области
 }
