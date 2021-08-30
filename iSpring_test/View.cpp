@@ -110,13 +110,13 @@ void Show_Boards()
 	image.loadFromFile("Images/Rectangle.png");
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
-	sprite.setPosition(move_width + 120, move_width + 10);
+	sprite.setPosition(move_width + 220, move_width + 10);
 	window.draw(sprite);
 
 	image.loadFromFile("Images/Elipse.png");
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
-	sprite.setPosition(move_width + 230, move_width + 10);
+	sprite.setPosition(move_width + 430, move_width + 10);
 	window.draw(sprite);
 }
 
