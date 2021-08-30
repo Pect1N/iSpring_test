@@ -1,10 +1,21 @@
 #include "Viewr.h"
-#include "Controller.h"
-#include "Model.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+
+const int WIDTH = 700; //window width
+const int HEIGTH = 700; //window heigth
+const int AREA_WIDTH = 640;
+const int AREA_HEIGTH = 480;
+const int MENU_WIDTH = 640;
+const int MENU_HEIGTH = 130;
+Vector2f MENU_POS_LEFT_UP;
+Vector2f MENU_POS_RIGHT_DOWN;
+Vector2f AREA_POS_LEFT_UP;
+Vector2f AREA_POS_RIGHT_DOWN;
+
+RenderWindow window(VideoMode(WIDTH, HEIGTH), "Game");
 
 void Show()
 {
@@ -37,25 +48,25 @@ void Show_Figure(int figure)
 
 	switch (figure)
 	{
-		case 1 :
-		{
-			image.loadFromFile("Images/Triangle.png");
-			break;
-		}
-		case 2 :
-		{
-			image.loadFromFile("Images/Rectangle.png");
-			break;
-		}
-		case 3 :
-		{
-			image.loadFromFile("Images/Elipse.png");
-			break;
-		}
-		default:
-		{
-			break;
-		}
+	case 1:
+	{
+		image.loadFromFile("Images/Triangle.png");
+		break;
+	}
+	case 2:
+	{
+		image.loadFromFile("Images/Rectangle.png");
+		break;
+	}
+	case 3:
+	{
+		image.loadFromFile("Images/Elipse.png");
+		break;
+	}
+	default:
+	{
+		break;
+	}
 	}
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
@@ -68,7 +79,7 @@ void Show_Boards()
 	Image image;
 	Texture texture;
 	Sprite sprite;
-	float move_width = (WIDTH - AREA_WIDTH) / 2;
+	int move_width = (WIDTH - AREA_WIDTH) / 2;
 
 	window.clear(Color(175, 180, 240));
 
@@ -77,10 +88,18 @@ void Show_Boards()
 	area.setFillColor(Color::White);
 	window.draw(area);
 
-	RectangleShape rectangle(Vector2f(MENU_WIDTH, MENU_HEIGTH));
-	rectangle.move(move_width, move_width);
-	rectangle.setFillColor(Color::White);
-	window.draw(rectangle);
+	AREA_POS_LEFT_UP = area.getPosition();
+	AREA_POS_RIGHT_DOWN.x = AREA_POS_LEFT_UP.x + AREA_WIDTH;
+	AREA_POS_RIGHT_DOWN.y = AREA_POS_LEFT_UP.y + AREA_HEIGTH;
+
+	RectangleShape menu(Vector2f(MENU_WIDTH, MENU_HEIGTH));
+	menu.move(move_width, move_width);
+	menu.setFillColor(Color::White);
+	window.draw(menu);
+
+	MENU_POS_LEFT_UP = menu.getPosition();
+	MENU_POS_RIGHT_DOWN.x = MENU_POS_LEFT_UP.x + MENU_WIDTH;
+	MENU_POS_RIGHT_DOWN.y = MENU_POS_LEFT_UP.y + MENU_HEIGTH;
 
 	image.loadFromFile("Images/Triangle.png");
 	texture.loadFromImage(image);
@@ -99,4 +118,23 @@ void Show_Boards()
 	sprite.setTexture(texture);
 	sprite.setPosition(move_width + 230, move_width + 10);
 	window.draw(sprite);
+}
+
+int Menu_Click_Check()
+{
+	Vector2i pixelPos = Mouse::getPosition(window);
+	int x = pixelPos.x;
+	int y = pixelPos.y;
+	if (pixelPos.y > AREA_POS_LEFT_UP.y && pixelPos.x > AREA_POS_LEFT_UP.x && pixelPos.y < AREA_POS_RIGHT_DOWN.y && pixelPos.x < AREA_POS_RIGHT_DOWN.x)
+	{
+		std::cout << "Area clicked" << std::endl;
+	}
+	else if (pixelPos.y > MENU_POS_LEFT_UP.y && pixelPos.x > MENU_POS_LEFT_UP.x && pixelPos.y < MENU_POS_RIGHT_DOWN.y && pixelPos.x < MENU_POS_RIGHT_DOWN.x)
+	{
+		std::cout << "Menu clicked" << std::endl;
+	}
+	else
+		std::cout << "Window clicked" << std::endl;
+
+	return 0;
 }
