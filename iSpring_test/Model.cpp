@@ -67,8 +67,5 @@ void Figure::set_higher(Figure* higher)
 
 Figure::~Figure()
 {
-	if (higher != NULL)
-		higher->lower = lower;
-	if (lower != NULL)
-		lower->higher = higher;
+	
 }

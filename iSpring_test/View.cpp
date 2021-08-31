@@ -38,12 +38,18 @@ void Show()
 				window.close();
 			}
 		}
-		Show_Boards();
-		Show_Figures();
 		if (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left) // добавить условие единичного нажатия
 		{
 			Menu_Click_Check();
 		}
+		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Delete)
+		{
+			std::cout << "Delete pressed" << std::endl;
+			LAST_FOR_PRINT = Delete_element(LAST_FOR_PRINT);
+		}
+		window.clear(Color(175, 180, 240));
+		Show_Boards();
+		Show_Figures();
 		window.display();
 	}
 }
@@ -54,8 +60,6 @@ void Show_Boards()
 	Texture texture;
 	Sprite sprite;
 	int move_width = (WIDTH - AREA_WIDTH) / 2;
-
-	window.clear(Color(175, 180, 240));
 
 	RectangleShape area(Vector2f(AREA_WIDTH, AREA_HEIGTH));
 	area.move(move_width, move_width + MENU_HEIGTH + 20);
