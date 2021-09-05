@@ -27,7 +27,7 @@ RenderWindow window(VideoMode(WIDTH, HEIGTH), "Game");
 void Show()
 {
 	Event event;
-	int a = 0;
+	int a = 0, b = 0;
 
 	while (window.isOpen())
 	{
@@ -49,11 +49,17 @@ void Show()
 		}
 		if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left)
 			a = 0;
-		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Delete)
+		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Delete) // добавить условие единичного нажатия
 		{
-			std::cout << "Delete pressed" << std::endl;
-			LAST_FOR_PRINT = Delete_element(LAST_FOR_PRINT);
+			if (b == 0)
+			{
+				std::cout << "Delete pressed" << std::endl;
+				LAST_FOR_PRINT = Delete_element(LAST_FOR_PRINT);
+				b = 1;
+			}
 		}
+		if (event.type == Event::KeyReleased && event.key.code == Keyboard::Delete)
+			b = 0;
 		window.clear(Color(175, 180, 240));
 		Show_Boards();
 		Show_Figures();
