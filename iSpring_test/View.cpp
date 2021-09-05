@@ -130,8 +130,7 @@ void Show_Figures()
 			++a;
 			texture.loadFromImage(pointer->get_image());
 			sprite.setTexture(texture);
-			sprite.setPosition(300, 370);
-			pointer->set_position(sprite.getPosition());
+			sprite.setPosition(pointer->get_position());
 			window.draw(sprite);
 			pointer = pointer->get_higher();
 		} while (pointer != NULL);
