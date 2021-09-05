@@ -5,6 +5,7 @@ Figure::Figure(int element_type, Figure* highest)
 {
 	higher = NULL;
 	lower = NULL;
+	selected = 0;
 	minimal_size.x = 10;
 	minimal_size.y = 10;
 	size.x = 100;
@@ -63,6 +64,26 @@ void Figure::set_lower(Figure* lower)
 void Figure::set_higher(Figure* higher)
 {
 	this->higher = higher;
+}
+
+sf::Vector2f Figure::get_position()
+{
+	return position;
+}
+
+void Figure::set_position(sf::Vector2f pos)
+{
+	position = pos;
+}
+
+void Figure::set_select(int number)
+{
+	selected = number;
+}
+
+int Figure::get_select()
+{
+	return selected;
 }
 
 Figure::~Figure()
