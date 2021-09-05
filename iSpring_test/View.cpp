@@ -27,6 +27,7 @@ RenderWindow window(VideoMode(WIDTH, HEIGTH), "Game");
 void Show()
 {
 	Event event;
+	int a = 0;
 
 	while (window.isOpen())
 	{
@@ -40,8 +41,14 @@ void Show()
 		}
 		if (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left) // добавить условие единичного нажатия
 		{
-			Menu_Click_Check();
+			if (a == 0)
+			{
+				Menu_Click_Check();
+				a = 1;
+			}
 		}
+		if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left)
+			a = 0;
 		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Delete)
 		{
 			std::cout << "Delete pressed" << std::endl;
@@ -106,22 +113,24 @@ void Show_Figures()
 	Texture texture;
 	Sprite sprite;
 	Figure* pointer = LAST_FOR_PRINT;
+	int a = 0;
 
 	if (pointer != NULL)
 	{
 		while (pointer->get_lower() != NULL)
-		{
 			pointer = pointer->get_lower();
-		}
 		do
 		{
+			++a;
 			texture.loadFromImage(pointer->get_image());
 			sprite.setTexture(texture);
 			sprite.setPosition(300, 370);
+			pointer->set_position(sprite.getPosition());
 			window.draw(sprite);
 			pointer = pointer->get_higher();
 		} while (pointer != NULL);
 	}
+	std::cout << "Number of elements " << a << std::endl;
 }
 
 int Menu_Click_Check()
