@@ -10,6 +10,8 @@ Figure::Figure(int element_type, Figure* highest)
 	minimal_size.y = 10;
 	size.x = 100;
 	size.y = 100;
+	position.x = 300;
+	position.y = 370;
 
 	switch (element_type)
 	{
