@@ -131,11 +131,31 @@ void Show_Figures()
 			texture.loadFromImage(pointer->get_image());
 			sprite.setTexture(texture);
 			sprite.setPosition(pointer->get_position());
+			//Potential bug
+			sprite.scale(pointer->get_size());
 			window.draw(sprite);
+			if (pointer->get_select() == 1)
+			{
+				//рисование прямых для обводки
+				VertexArray line(Lines, 2);
+				line[0].color = line[1].color = Color::Black;
+				line[0].position = pointer->get_position();
+				line[1].position = Vector2f(pointer->get_position().x + pointer->get_size().x * 100, pointer->get_position().y);
+				window.draw(line);
+				line[0].position = pointer->get_position();
+				line[1].position = Vector2f(pointer->get_position().x, pointer->get_position().y + pointer->get_size().y * 100);
+				window.draw(line);
+				line[0].position = Vector2f(pointer->get_position().x + pointer->get_size().x * 100, pointer->get_position().y);
+				line[1].position = Vector2f(pointer->get_position().x + pointer->get_size().x * 100, pointer->get_position().y + pointer->get_size().y * 100);
+				window.draw(line);
+				line[0].position = Vector2f(pointer->get_position().x, pointer->get_position().y + pointer->get_size().y * 100);
+				line[1].position = Vector2f(pointer->get_position().x + pointer->get_size().x * 100, pointer->get_position().y + pointer->get_size().y * 100);
+				window.draw(line);
+			}
 			pointer = pointer->get_higher();
 		} while (pointer != NULL);
 	}
-	std::cout << "Number of elements " << a << std::endl;
+	//std::cout << "Number of elements " << a << std::endl;
 }
 
 int Menu_Click_Check()
@@ -144,6 +164,8 @@ int Menu_Click_Check()
 	if (pixelPos.y > AREA_POS_LEFT_UP.y && pixelPos.x > AREA_POS_LEFT_UP.x && pixelPos.y < AREA_POS_RIGHT_DOWN.y && pixelPos.x < AREA_POS_RIGHT_DOWN.x)
 	{
 		std::cout << "Area clicked" << std::endl;
+		//функция проверки координат для 
+		Element_click_check(pixelPos, LAST_FOR_PRINT);
 	}
 	else if (pixelPos.y > MENU_POS_LEFT_UP.y && pixelPos.x > MENU_POS_LEFT_UP.x && pixelPos.y < MENU_POS_RIGHT_DOWN.y && pixelPos.x < MENU_POS_RIGHT_DOWN.x)
 	{
