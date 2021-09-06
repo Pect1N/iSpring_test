@@ -6,10 +6,10 @@ Figure::Figure(int element_type, Figure* highest)
 	higher = NULL;
 	lower = NULL;
 	selected = 0;
-	minimal_size.x = 10;
-	minimal_size.y = 10;
-	size.x = 100;
-	size.y = 100;
+	minimal_size.x = 0.1;
+	minimal_size.y = 0.1;
+	size.x = 1;
+	size.y = 1;
 	position.x = 300;
 	position.y = 370;
 
@@ -86,6 +86,24 @@ void Figure::set_select(int number)
 int Figure::get_select()
 {
 	return selected;
+}
+
+sf::Vector2f Figure::get_size()
+{
+	return size;
+}
+
+void Figure::set_size(sf::Vector2f new_size)
+{
+	size = new_size;
+}
+
+int Figure::minimal_size_check()
+{
+	if (size.x >= minimal_size.x && size.y >= minimal_size.y)
+		return 1;
+	else
+		return 0;
 }
 
 Figure::~Figure()

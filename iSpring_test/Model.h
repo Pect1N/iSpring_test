@@ -24,4 +24,7 @@ public:
 	sf::Vector2f get_position();
 	void set_select(int);
 	int get_select();
+	sf::Vector2f get_size();
+	void set_size(sf::Vector2f);
+	int minimal_size_check();
 };
