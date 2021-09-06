@@ -41,3 +41,24 @@ Figure* Delete_element(Figure* highest)
 	//если нет, то ничего не делаем
 	return highest;
 }
+
+void Element_click_check(sf::Vector2i position, Figure* highest)
+{
+	Figure* pointer = highest;
+	if (pointer != NULL)
+	{
+		do
+		{
+			if (position.x > pointer->get_position().x && position.y > pointer->get_position().y && position.x < pointer->get_position().x + pointer->get_size().x * 100 && position.y < pointer->get_position().y + pointer->get_size().y * 100)
+			{
+				pointer->set_select(1);
+				printf("Element selected\n");
+				break;
+			}
+			else
+			{
+				pointer = pointer->get_lower();
+			}
+		} while (pointer != NULL);
+	}
+}
