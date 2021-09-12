@@ -6,8 +6,8 @@ Figure::Figure(int element_type, Figure* highest)
 	higher = NULL;
 	lower = NULL;
 	selected = 0;
-	minimal_size.x = 0.1;
-	minimal_size.y = 0.1;
+	minimal_size.x = 0.2;
+	minimal_size.y = 0.2;
 	size.x = 1;
 	size.y = 1;
 	position.x = 300;
