@@ -19,6 +19,7 @@ Vector2f AREA_POS_RIGHT_DOWN;
 Vector2f TRIANGLE_LEFT_UP;
 Vector2f RECTANGLE_LEFT_UP;
 Vector2f ELIPSE_LEFT_UP;
+int SELECT = 0;
 
 Figure* LAST_FOR_PRINT = NULL;
 
@@ -27,6 +28,7 @@ RenderWindow window(VideoMode(WIDTH, HEIGTH), "Game");
 void Show()
 {
 	Event event;
+	Vector2i startPos;
 	int a = 0, b = 0;
 
 	while (window.isOpen())
@@ -45,10 +47,20 @@ void Show()
 			{
 				Menu_Click_Check();
 				a = 1;
+				startPos = Mouse::getPosition(window);
 			}
 		}
 		if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left)
+		{
 			a = 0;
+			if (SELECT == 1)
+			{
+				Vector2i pixelPos = Mouse::getPosition(window);
+				Long_press_check(startPos, pixelPos, LAST_FOR_PRINT);
+				SELECT = 0;
+			}
+			//проверка отжатия за пределами зоны при перетаскивании фигуры
+		}
 		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Delete) // добавить условие единичного нажатия
 		{
 			if (b == 0)
@@ -165,7 +177,10 @@ int Menu_Click_Check()
 	{
 		std::cout << "Area clicked" << std::endl;
 		//функция проверки координат для 
-		Element_click_check(pixelPos, LAST_FOR_PRINT);
+		SELECT = Element_click_check(pixelPos, LAST_FOR_PRINT);
+		// функция проверки зажатия мыши
+		// если продолжается зажимание, то считываем координаты отжатия
+		// вычитаем из координат отжатия координаты нажатия и прибавляем к позиции фигуры с selected = 1 (или указатели применяем)
 	}
 	else if (pixelPos.y > MENU_POS_LEFT_UP.y && pixelPos.x > MENU_POS_LEFT_UP.x && pixelPos.y < MENU_POS_RIGHT_DOWN.y && pixelPos.x < MENU_POS_RIGHT_DOWN.x)
 	{
