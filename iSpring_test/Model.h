@@ -6,7 +6,6 @@ class Figure
 private:
 	Figure* lower;
 	Figure* higher;
-	sf::Vector2f points;
 	sf::Vector2f size;
 	sf::Vector2f minimal_size;
 	sf::Image image;

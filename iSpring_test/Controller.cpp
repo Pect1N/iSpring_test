@@ -69,6 +69,28 @@ int Element_click_check(sf::Vector2i position, Figure* highest)
 		return 0;
 }
 
+void Long_press_check(sf::Vector2i startposition, sf::Vector2i position, Figure* highest, sf::Vector2f area_left, sf::Vector2f area_right)
+{
+	Figure* pointer = highest;
+	if (pointer != NULL)
+	{
+		do
+		{
+			if (pointer->get_select() == 1)
+			{
+				if (startposition.x > pointer->get_position().x && startposition.x < pointer->get_position().x + 20 ||
+					startposition.y > pointer->get_position().y && startposition.y < pointer->get_position().y + 20 ||
+					startposition.x < pointer->get_position().x + pointer->get_size().x * 100 && startposition.x > pointer->get_position().x + pointer->get_size().x * 100 - 20 ||
+					startposition.y < pointer->get_position().y + pointer->get_size().y * 100 && startposition.y > pointer->get_position().y + pointer->get_size().y * 100 - 20)
+					Scale(position, startposition, pointer, area_left, area_right);
+				else
+					Move(startposition, position, pointer, area_left, area_right);
+			}
+			pointer = pointer->get_lower();
+		} while (pointer != NULL);
+	}
+}
+
 void Move(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, sf::Vector2f area_left, sf::Vector2f area_right)
 {
 	sf::Vector2f pos;
@@ -76,9 +98,9 @@ void Move(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, sf
 	pos.y = pointer->get_position().y + (startposition.y - position.y);
 	//проверка на перемещение от размера и скейла
 	//если есть проблемы, то ничего не делать
-	if (pos.x < area_left.x || 
-		pos.y < area_left.y || 
-		pos.x + pointer->get_size().x * 100 > area_right.x || 
+	if (pos.x < area_left.x ||
+		pos.y < area_left.y ||
+		pos.x + pointer->get_size().x * 100 > area_right.x ||
 		pos.y + pointer->get_size().y * 100 > area_right.y)
 	{
 	}
@@ -99,7 +121,8 @@ void Scale(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, s
 		position.y < area_left.y ||
 		position.x > area_right.x ||
 		position.y > area_right.y)
-	{ }
+	{
+	}
 	//если всё норм, то выполняем это
 	else
 	{
@@ -185,27 +208,5 @@ void Scale(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, s
 			scale.y = 0.2;
 			pointer->set_size(scale);
 		}
-	}
-}
-
-void Long_press_check(sf::Vector2i startposition, sf::Vector2i position, Figure* highest, sf::Vector2f area_left, sf::Vector2f area_right)
-{
-	Figure* pointer = highest;
-	if (pointer != NULL)
-	{
-		do
-		{
-			if (pointer->get_select() == 1)
-			{
-				if (startposition.x > pointer->get_position().x && startposition.x < pointer->get_position().x + 20 ||
-					startposition.y > pointer->get_position().y && startposition.y < pointer->get_position().y + 20 ||
-					startposition.x < pointer->get_position().x + pointer->get_size().x * 100 && startposition.x > pointer->get_position().x + pointer->get_size().x * 100 - 20 ||
-					startposition.y < pointer->get_position().y + pointer->get_size().y * 100 && startposition.y > pointer->get_position().y + pointer->get_size().y * 100 - 20)
-					Scale(position, startposition, pointer, area_left, area_right);
-				else
-					Move(startposition, position, pointer, area_left, area_right);
-			}
-			pointer = pointer->get_lower();
-		} while (pointer != NULL);
 	}
 }

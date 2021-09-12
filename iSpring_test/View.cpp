@@ -130,6 +130,7 @@ void Show_Figures()
 {
 	Texture texture;
 	Sprite sprite;
+	Sprite clear_sprite;
 	Figure* pointer = LAST_FOR_PRINT;
 	int a = 0;
 
@@ -140,11 +141,13 @@ void Show_Figures()
 		do
 		{
 			++a;
+			sprite = clear_sprite;
 			texture.loadFromImage(pointer->get_image());
 			sprite.setTexture(texture);
 			sprite.setPosition(pointer->get_position());
 			//Potential bug
 			sprite.scale(pointer->get_size());
+			std::cout << "Global Bounds: " << sprite.getGlobalBounds().height << std::endl;
 			window.draw(sprite);
 			if (pointer->get_select() == 1)
 			{
