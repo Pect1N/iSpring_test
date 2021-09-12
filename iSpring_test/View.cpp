@@ -56,7 +56,7 @@ void Show()
 			if (SELECT == 1)
 			{
 				Vector2i pixelPos = Mouse::getPosition(window);
-				Long_press_check(startPos, pixelPos, LAST_FOR_PRINT);
+				Long_press_check(startPos, pixelPos, LAST_FOR_PRINT, AREA_POS_LEFT_UP, AREA_POS_RIGHT_DOWN);
 				SELECT = 0;
 			}
 			//проверка отжатия за пределами зоны при перетаскивании фигуры
