@@ -100,7 +100,7 @@ void Figure::set_size(sf::Vector2f new_size)
 
 int Figure::minimal_size_check()
 {
-	if (size.x >= minimal_size.x && size.y >= minimal_size.y)
+	if (size.x > minimal_size.x && size.y > minimal_size.y)
 		return 1;
 	else
 		return 0;

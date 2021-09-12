@@ -89,11 +89,6 @@ void Move(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, sf
 	}
 }
 
-void Minimal_scale_check()
-{
-
-}
-
 void Scale(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, sf::Vector2f area_left, sf::Vector2f area_right)
 {
 	sf::Vector2f scale;
@@ -182,9 +177,15 @@ void Scale(sf::Vector2i position, sf::Vector2i startposition, Figure* pointer, s
 			scale.y = (position.y - startposition.y) / 100.0;
 			scale.y += pointer->get_size().y;
 		}
-		pointer->set_size(scale);
+		if (pointer->minimal_size_check())
+			pointer->set_size(scale);
+		else
+		{
+			scale.x = 0.2;
+			scale.y = 0.2;
+			pointer->set_size(scale);
+		}
 	}
-	Minimal_scale_check();
 }
 
 void Long_press_check(sf::Vector2i startposition, sf::Vector2i position, Figure* highest, sf::Vector2f area_left, sf::Vector2f area_right)
